@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function numeroRandom() {
+        return new Promise (function (exitoCallback){
+            exitoCallback(Math.ceil(Math.random() * 10));
+        }, function (falloCallback){
+            falloCallback("El callback ha fallado");
+        })
+    }
+
+    numeroRandom()
+    .then(function(numero){
+        console.log(numero);
+    })
+    .catch(function(fallo){
+        console.log(fallo);
+    })
+
+    //-------------------------------------------------------------------------
+    let promesa = new Promise(function (exito, fallo){
+        //Sin las condiciones, solo se ejecutaria el exito de la promesa, si hubiese un fallo, el fallo
+        //if (false) {
+            exito("La promesa ha tenido exito");
+        //} else {
+            fallo("La promesa ha fallado");
+        //}
+    })
+
+    promesa
+    .then(function(funciona) {
+        console.log("funciona :", funciona);
+    })
+    .catch(function(error){
+        console.log("error: ", error);
+    })
+//--------------------------------------------------------------------------------
+    function promesa2(){
+        return new Promise(function(exito, fallo) {
+            //Si se comenta exito, saltaria el fallo y se ejecutaria el catch cuando fuese llamado
+            exito("La promesa se ejecuto correctamente");
+            fallo("Ocurrio un fallo al ejecutar la promesa");
+        })
+    }
+
+    promesa2()
+    .then(function(funciona){
+        console.log(funciona);
+    })
+    .catch(function(error){
+        console.log(error);
+    })
+
+</script>
+<body>
+    
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+            document.getElementById("boton").onclick = cargar;
+        }
+
+        function cargar(){
+            var req;
+            if (window.XMLHttpRequest){
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject){
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            if (req) {
+                req.onreadystatechange = function(){
+                    if (req.readyState == 4 && req.status == 200){
+                        document.getElementById("caja").innerHTML = req.responseText;
+                    }
+                }
+            }
+
+            req.open("POST", "servidor.php");
+            req.send();
+        }
+    </script>
+</head>
+<body>
+    <div id="caja"></div>
+    <button id="boton">subir</button>
+</body>
+</html>

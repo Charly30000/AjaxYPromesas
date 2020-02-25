@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.addEventListener("load", function(){
+            document.getElementById("boton").onclick = cargar;
+        });
+
+        function cargar(){
+            var req;
+            if (window.XMLHttpRequest){
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject){
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            if (req) {
+                req.onreadystatechange = function(){
+                    if (req.readyState == 4 && req.status == 200){
+                        var type = req.getResponseHeader("Content-type");
+                        if (type === "application/json"){
+                            modificaCosas(req.responseText);
+                        }
+                    }
+                }
+            }
+            let objetoDatos = {
+                div1 : document.getElementById("caja1").textContent,
+                div2 : document.getElementById("caja2").textContent,
+                div3 : document.getElementById("caja3").textContent
+            }
+            req.open("POST", "servidor.php");
+            req.send(JSON.stringify(objetoDatos));
+        }
+
+        function modificaCosas(datos){
+            datos = JSON.parse(datos);
+            document.getElementById("caja1").textContent = datos.div1;
+            document.getElementById("caja2").textContent = datos.div2;
+            document.getElementById("caja3").textContent = datos.div3;
+        }
+    </script>
+</head>
+<body>
+    <div id="caja1">texto uno</div>
+    <div id="caja2">texto dos</div>
+    <div id="caja3">texto tres</div>
+    <button id="boton">Submit</button>
+</body>
+</html>

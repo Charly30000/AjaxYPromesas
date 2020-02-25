@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    //----------------------------Asincronismo-------------------------------
+    async function suma(numero) {
+        return 1 + numero;
+    }
+
+    suma(1)
+    .then(function(resultado){
+        console.log(resultado);
+    })
+    //-----------------------------------------------------------------------
+
+    //--------------------------------Await----------------------------------
+
+    function sumaUno(numero) {
+        return new Promise(function(resultado){
+            resultado(numero + 1);
+        })
+    }
+
+    //Con await, hace que se vuelva asincrona y espera
+    //hasta que se vaya a hacer algo con esos datos
+    //Todo esto sera completamente asincrono
+    //Es necesario que las funciones pasadas sean promesas
+    async function suma3Numeros() {
+        let a = await sumaUno(1);
+        let b = await sumaUno(1);
+        let c = await sumaUno(1);
+        return a + b + c;
+    }
+
+    suma3Numeros()
+    .then(function(sumaTotal) {
+        console.log(sumaTotal); //Devolveria un 6
+    })
+
+</script>
+<body>
+    
+</body>
+</html>

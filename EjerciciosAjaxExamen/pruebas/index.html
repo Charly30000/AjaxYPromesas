@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function() {
+            document.getElementById("boton").onclick = cargar;
+        }
+
+        function cargar() {
+            var req;
+            if (window.XMLHttpRequest){
+                req = new XMLHttpRequest();
+            } else if (window.ActiveXObject){
+                req = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            if (req) {
+                req.onreadystatechange = function(){
+                    if (req.readyState == 4 && req.status == 200){
+                        let type = req.getResponseHeader("Content-type");
+                        console.log(req.responseText);
+                        console.log(type);
+                        if (type === "application/json"){
+                            let objeto = JSON.parse(req.responseText);
+                            document.getElementById("caja").innerHTML = objeto.objeto;
+                        }
+                    }
+                }
+            }
+            let caja = document.getElementById("caja").textContent;
+            let objeto = {objeto : caja};
+            req.open("POST", "servidor.php");
+            //req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            req.send(JSON.stringify(objeto));
+        }
+    </script>
+</head>
+<body>
+    <div id="caja">hola buenas</div>
+    <button id="boton">Boton</button>
+</body>
+</html>

@@ -1,0 +1,33 @@
+JavaScript:
+
+JSON.Stringify(datos) --> Nos lo convierte en un String, pero en codificacion JSON
+
+JSON.Parse(datos) --> Nos coge el JSON y nos devuelve una variable con toda la estructura parseada de JSON, pero de manera navegable en Javascript
+		(Convierte JSON en un objeto de JavaScript)
+
+PHP:
+
+json_encode(datos) --> le pasamos un objeto, array.... y nos devuelve un String convertido en JSON
+
+json_decode(datos) --> Se usara para transformar el JSON una estructura navegable en objetos y arrays que pueda entender PHP
+
+Recibir datos en php:
+
+$datosRecibidos = file_get_contents('php://input');
+
+Poner cabecera en php al enviar datos:
+
+header("Content-type: application/json");
+
+Enviar datos por el metodo POST en Ajax, de manera que al recogerlos en php, sea de la forma tradicional:
+
+req.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+Comprobar en Ajax que recibes datos en json o de la manera que tu pidas:
+
+if (req.readyState == 4 && req.status == 200){
+    var type = req.getResponseHeader("Content/type");
+    if (type = "application/json"){
+         modificaCosas(req.responseText);
+    }
+}

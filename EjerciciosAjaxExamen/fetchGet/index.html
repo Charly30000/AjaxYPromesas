@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        window.onload = function(){
+            document.getElementById("boton").onclick = mandarPeticion;
+        }
+
+        function mandarPeticion(){
+            var url = "servidor.php";
+            /*
+            El objeto metodo, es unicamente si quiero especificar como enviarlo.
+            En caso de que no me importase, como es en este caso, simplemente no pondria
+            el objeto metodo, y el fetch se quedaria: fetch(url).then(.....)
+            */
+            let metodo = {
+                method : "GET"
+            }
+            fetch(url, metodo).then(function(respuesta){
+                return respuesta.text();
+            }).then(function(datos){
+                document.getElementById("caja").textContent = datos;
+            })
+        }
+    </script>
+</head>
+<body>
+    <p>Clickea para obtener un texto</p>
+    <div id="caja"></div>
+    <button id="boton">Submit</button>
+</body>
+</html>
